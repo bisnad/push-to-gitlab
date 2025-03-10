@@ -1,0 +1,22 @@
+name: 'Push to Gitlab server'
+description: 'Push changes from Github repository to Gitlab repository.'
+author: 'Payam Saderi'
+branding:
+  icon: arrow-up-circle
+  color: orange
+inputs:
+  gitlab_repository:
+    description: 'Gitlab repository'
+    required: true
+    type: 'string'
+  gitlab_token:
+    description: 'Gitlab token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+          git config --global user.name "github-actions[bot]"
+          git remote add gitlab https://oauth2:${{ inputs.gitlab_token }}@${{ inputs.gitlab_repository }}
+          git push gitlab
