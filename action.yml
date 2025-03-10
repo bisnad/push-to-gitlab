@@ -9,6 +9,10 @@ inputs:
     description: 'Gitlab repository'
     required: true
     type: 'string'
+  gitlab_user:
+    description: 'Gitlab user'
+    required: true
+    type: 'string'
   gitlab_token:
     description: 'Gitlab token'
     required: true
@@ -17,6 +21,6 @@ runs:
   steps:
     - shell: bash
       run: |
-          git config --global user.name "github-actions[bot]"
+          git config --global inputs.gitlab_user "github-actions[bot]"
           git remote add gitlab https://oauth2:${{ inputs.gitlab_token }}@${{ inputs.gitlab_repository }}
           git push gitlab
